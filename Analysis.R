@@ -20,7 +20,7 @@ latinx_pop_mean <- mean(data_2018$latinx_jail_pop)
 native_mean <- mean(data_2018$native_jail_pop)
 white_mean <- mean(data_2018$white_jail_pop)
 other_mean <- mean(data_2018$other_race_jail_pop)
-c(total_pop_mean, aapi_pop_mean, black_pop_mean, latinx_pop_mean, native_mean, white_mean, other_mean)
+mean_2018_value <- c(total_pop_mean, aapi_pop_mean, black_pop_mean, latinx_pop_mean, native_mean, white_mean, other_mean)
 
 #What's the max mean number in different races? And how about the minimal number?
 max_mean <- max(c(total_pop_mean, aapi_pop_mean, black_pop_mean, latinx_pop_mean, native_mean, white_mean, other_mean))
@@ -35,7 +35,7 @@ latinx_pop_max <- max(data_2018$latinx_jail_pop)
 native_max <- max(data_2018$native_jail_pop)
 white_max <- max(data_2018$white_jail_pop)
 other_max <- max(data_2018$other_race_jail_pop)
-c(total_pop_max, aapi_pop_max, black_pop_max, latinx_pop_max, native_max, white_max, other_max)
+highest_value <- c(total_pop_max, aapi_pop_max, black_pop_max, latinx_pop_max, native_max, white_max, other_max)
 
 #What's the lowest number in each variable (different race)?
 total_pop_min <- min(data_2018$total_jail_pop)
@@ -45,7 +45,7 @@ latinx_pop_min <- min(data_2018$latinx_jail_pop)
 native_min <- min(data_2018$native_jail_pop)
 white_min <- min(data_2018$white_jail_pop)
 other_min <- min(data_2018$other_race_jail_pop)
-c(total_pop_min, aapi_pop_min, black_pop_min, latinx_pop_min, native_min, white_min, other_min)
+lowest_value <- c(total_pop_min, aapi_pop_min, black_pop_min, latinx_pop_min, native_min, white_min, other_min)
 
 #How many people are incarcerated in different racial groups in different years?
 data_group <- data_df %>% group_by(data_df$year) %>% summarise(across(everything(), sum))
@@ -59,7 +59,7 @@ df <- data_group %>%
          latinx = latinx_jail_pop, native = native_jail_pop, white = white_jail_pop, other = other_race_jail_pop) %>%
   gather(key = "race_jail_population", value = "population", -year)
 head(df)
-ggplot(df, aes(x = year, y = population)) + 
+trend_chart <- ggplot(df, aes(x = year, y = population)) + 
   geom_line(aes(color = race_jail_population, linetype = race_jail_population)) + 
   scale_color_manual(values = c("darkred", "steelblue", "orange", "green", "purple", "black", "yellow")) +
   ggtitle("Increasing jail population in different races with years")
